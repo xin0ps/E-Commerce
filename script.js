@@ -24,6 +24,8 @@ $(document).ready(() => {
       const data = await response.json();
 
       console.log(data);
+
+      window.location.href = "products.html"
     } catch (error) {
       console.error(error);
     }
