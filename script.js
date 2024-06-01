@@ -1,5 +1,8 @@
+
 $(document).ready(() => {
   let products = [];
+ let order=[];
+ var orderProduct;
 
   const loginuser = async () => {
     try {
@@ -28,6 +31,7 @@ $(document).ready(() => {
       window.location.replace("products.html")
    
     } catch (error) {
+      $("#error").removeClass('hidden')
       console.error(error);
     }
   };
@@ -85,8 +89,8 @@ $(document).ready(() => {
       if (!response.ok) {
         throw new Error("HTTP error " + response.status);
       }
-
       const data = await response.json();
+      products=data
 
       let productsHTML = "";
       if (category === "All Categories") {
@@ -139,6 +143,107 @@ $(document).ready(() => {
     }
   };
 
+  $("#products").on("click", ".slider-container", function () {
+    let selectedProduct;
+    const index = $(this).index();
+    const category = $("#category").text();
+   
+if(category==="All Categories"){
+    selectedProduct = products.product[index];
+}
+
+else{
+  mappedPr=products.product.filter(pr=>pr.category===category)
+  selectedProduct=mappedPr[index];
+}
+
+   orderProduct=selectedProduct;
+   console.log(orderProduct.title);
+
+    $("#sizediv").html(selectedProduct.size.map(size=>`<div class="h-8 w-16 justify-center text-center flex border-[black] border-2">${size}</div>`));
+    $("#colordiv").html(selectedProduct.colors.map(color=>`<div class="h-8 w-16 justify-center text-center bg-[${color}] flex border-[black] border-2"></div>`));
+    $("#product-brand").text(selectedProduct.brand);
+    $("#product-title").text(selectedProduct.title);
+    $("#product-images").html(selectedProduct.gallery.map(image => `<div class="border-2 border-[bg-black] slide flex-none w-[400px] h-[400px]"> <img class=" h-400 w-400 justify-center" src="${image}" alt=""></div>`).join(''));
+    $("#product-description").text(selectedProduct.description);
+    $("#product-price").text(`$${selectedProduct.price}`);
+   
+    $("#product-details").removeClass("hidden");
+    
+
+    const productDetails = document.getElementById("product-details");
+    productDetails.style.position = "fixed";
+    productDetails.style.top = "50%";
+    productDetails.style.left = "50%";
+    productDetails.style.transform = "translate(-50%, -60%)";
+    productDetails.style.zIndex = "99"
+});
+
+
+
+$("#orders").click(() => {
+  order.forEach(selectedProduct => {
+      const sizeDivContent = selectedProduct.size.map(size => `<div class=" flex h-8 w-16 justify-center text-center flex border-[black] border-2">${size}</div>`).join('');
+      const colorDivContent = selectedProduct.colors.map(color => `<div  flex class="h-8 w-16 justify-center text-center bg-[${color}] flex border-[black] border-2"></div>`).join('');
+      
+      
+      const cartItemDiv = `
+      <div class="cart-item mt-[10px] flex flex-col gap-3 ">
+      <div id="product-images" class="flex overflow-x-auto w-full px-10 gap-2 border-1 border-grey">
+          ${selectedProduct.gallery.map(image => `
+      
+                  <div class="border-2 border-black slide flex-none w-400 h-400">
+                      <img class="h-64 w-64justify-center" src="${image}" alt="">
+                  </div>`).join('')}
+ 
+          </div>
+          <p id="product-brand">${selectedProduct.brand}</p>
+          <p id="product-title">${selectedProduct.title}</p>
+          <div id="sizediv" class="flex font-bold font-sans text-sm gap-2">SIZE:${sizeDivContent}</div>
+          <div id="colordiv" class="flex font-bold font-sans text-sm gap-2">COLOR:${colorDivContent}</div>
+          <p id="product-price" class="font-bold font-sans text-sm">PRICE:$${selectedProduct.price}</p>
+      </div>
+  `;
+      
+      
+      $("#cart").append(cartItemDiv)
+    });
+  
+    const cart = document.getElementById("cart");
+    if (cart.scrollHeight > cart.clientHeight) {
+        
+        cart.style.maxHeight = "100vh";
+        cart.style.overflowY = "auto";
+    } else {
+        
+        cart.style.maxHeight = "";
+        cart.style.overflowY = "hidden";
+    }
+
+   
+    cart.classList.remove("hidden");
+    cart.style.position = "fixed";
+    cart.style.top = "50%"; 
+    cart.style.left = "50%";
+    cart.style.transform = "translate(-50%, -60%)";
+    cart.style.zIndex = "99";
+});
+
+$("#addtocart").click(()=>{
+order.push(orderProduct);
+});
+
+$("#backproducts").click(()=>{
+  $("#product-details").addClass("hidden");
+
+});
+
+$("#back").click(()=>{
+  $("#cart").addClass("hidden");
+});
+
  loadProductsByCategory();
 
 });
+
+

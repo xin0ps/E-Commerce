@@ -33,11 +33,11 @@
                 stroke="currentColor" id="hamb" class="size-10">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
             </svg>
-            <img class="h-10" src="shopping-bag_5582837.png" alt="icon">
+            <img id="orders" class="h-10" src="shopping-bag_5582837.png" alt="icon">
         </div>
 
         <div id="menu"
-            class=" hidden absolute top-20 left-0 hidden flex flex-col  text-2xl font-bold gap-4 justify-center p-4">
+            class="  absolute top-20 left-0 hidden flex flex-col  text-2xl font-bold gap-4 justify-center p-4">
 
 
             <p>Cars</p>
@@ -48,24 +48,71 @@
 
     </nav>
 
-    <div class="flex flex-col h-full px-2 py-10 gap-10">
-        <h1 id="category" class="justify-center flex mt-[150px] text-3xl font-bold font-sans">All Categories</h1>
+    <div class="flex flex-col h-full px-5 py-20  gap-10">
+        <h1 id="category" class="justify-center flex mt-[50px] text-3xl font-bold font-sans">All Categories</h1>
         <div id="products" class=" h-full flex-col h-full justify-center gap-20 ">
 
 
         </div>
     </div>
+
+
+
+    <div id="product-details"
+        class=" mt-[90px] px-10 flex flex-col py-10 items-center gap-2 bg-[white] h-screen w-full hidden ">
+        <button id="backproducts"
+            class="text-white  absolute top-10 left-0 bg-[#5ECE7B] mt-[50px] mx-2 p-5 rounded-md ">Back to
+            Products</button>
+        <div id="product-images" class="flex overflow-x-auto w-full px-10 mt-[200px] gap-2 border-2   border-[bg-black]">
+
+        </div>
+
+
+
+        <p id="product-brand" class="text-center text-md bg-[white] font-bold font-sans"></p>
+        <p id="product-title" class="text-center text-mdbg-[white] font-bold font-sans"></p>
+        <p class="text-center text-md font-sans font-bold">SIZE:</p>
+        <div id="sizediv" class="flex justify-center gap-2">
+
+        </div>
+        <p class="text-center text-mdl font-sans font-bold">COLOR:</p>
+        <div id="colordiv" class="flex justify-center gap-2">
+
+        </div>
+        <p class="text-center text-md font-sans font-bold">PRICE:</p>
+        <p id="product-price" class="text-center font-bold text-md font-sans"></p>
+        <div class="flex justify-center text-[18px] text-[white] bg-[#5ECE7B] px-10 w-full h-[48px] ">
+            <button id="addtocart">
+                ADD TO CART
+            </button>
+        </div>
+
+
+        <p id="product-description" class="text-center font-bold text-sm font-sans"></p>
+
+    </div>
+
+
+
+    <div id="cart" class=" mt-[90px] px-10 flex flex-col  items-center gap-2 bg-[white] h-full w-full hidden ">
+        <button  id="back" class="text-white   bg-[#5ECE7B] position-left mt-[40px] mx-2 p-5 rounded-md ">Back to
+            Products</button>
+      
+
+    </div>
+
     <footer>
         <div class="flex bg-[#5ECE7B] w-full h-[200px] mt-20px">
             <div class="container mx-auto p-5 flex flex-col justify-center">
                 <p class="text-white mb-2">Contact</p>
-                <p class="text-white mb-2">Adres: Baku,Azerbaijan</p>
-                <p class="text-white mb-2">Telefon: 123-456-7890</p>
-                <p class="text-white mb-2">E-posta: info@Ecommerce.com</p>
+                <p class="text-white mb-2">Address: Baku,Azerbaijan</p>
+                <p class="text-white mb-2">Phone: 123-456-7890</p>
+                <p class="text-white mb-2">Email: info@Ecommerce.com</p>
                 <p class="text-white mb-2">© Rasul Aslanov.</p>
             </div>
 
         </div>
+
     </footer>
 
 
