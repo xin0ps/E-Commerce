@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+    </style>
+    <link rel="stylesheet" href="style.css">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script defer src="script.js"></script>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class=" relative flex  lg:hidden justify-between p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" id="hamb" class="size-10">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+            <img class="h-10" src="shopping-bag_5582837.png" alt="icon">
+        </div>
+
+        <div id="menu"
+            class=" hidden absolute top-20 left-0 hidden flex flex-col  text-2xl font-bold gap-4 justify-center p-4">
+
+
+            <p>Cars</p>
+            <p>Clothing</p>
+            <p>Tech</p>
+
+        </div>
+
+    </nav>
+
+    <div class="flex flex-col px-2 gap-10">
+        <h1 id="category" class="justify-center flex mt-[150px] text-3xl font-bold font-sans">All Categories</h1>
+        <div id="products" class="flex flex-col justify-center gap-20 ">
+
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>

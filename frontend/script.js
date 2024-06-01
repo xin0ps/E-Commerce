@@ -1,87 +1,178 @@
 $(document).ready(() => {
+  let products = [];
 
-    $('#content').load('login.html')
-
-
-const loginuser = async () => {
+  const loginuser = async () => {
     try {
-   
-        const email = $("#email").val();
-        const password = $("#password").val();
+      const email = $("#email").val();
+      const password = $("#password").val();
 
-        const response = await fetch("http://localhost:5000/api/auth/login",{
-
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
+      const response = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-
-            
-            email:email,
-            password:password
+        body: JSON.stringify({
+          email: email,
+          password: password,
         }),
+      });
 
+      if (!response.ok) {
+        throw new Error();
+      }
 
-        });
+      const data = await response.json();
 
-        if(!response.ok){
-            throw new Error();
-        }
-
-        const data = await response.json();
-
-        console.log(data);
-
+      console.log(data);
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   };
-
-
 
   const registeruser = async () => {
     try {
-        const name = $("#name").val();
-        const email = $("#email").val();
-        const password = $("#password").val();
+      const name = $("#name").val();
+      const email = $("#email").val();
+      const password = $("#password").val();
 
-        const response = await fetch("http://localhost:5000/api/auth/register",{
-
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json",
+      const response = await fetch("http://localhost:5000/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        body:JSON.stringify({
-
-            name:name,
-            email:email,
-            password:password
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password,
         }),
+      });
 
-
-        });
-
-        if(!response.ok){
-            throw new Error();
-        }
-
-        
-
-
+      if (!response.ok) {
+        throw new Error();
+      }
     } catch (error) {
-        console.error(error);
+      console.error(error);
     }
   };
 
-
-
-
-
   $("#login").click(loginuser);
-
 
   $("#signup").click(registeruser);
 
-  
+  $("#hamb").click(function () {
+    $("#menu").toggleClass("hidden");
+  });
+
+  $("#menu").on("click", "p", function () {
+    var selectedValue = $(this).text();
+    $("#category").text(selectedValue);
+    loadProductsByCategory();
+    $("#menu").toggleClass("hidden");
+  });
+
+  const loadProductsByCategory = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/products");
+      const category = $("#category").text();
+
+      if (!response.ok) {
+        throw new Error("HTTP error " + response.status);
+      }
+
+      const data = await response.json();
+
+      let productsHTML = "";
+      if (category === "All Categories") {
+        data.product.forEach((product) => {
+          let imagesHTML = "";
+
+          product.gallery.forEach((image) => {
+            imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-64 h-128"> <img class=" h-200 w-200 justify-center" src="${image}" alt=""></div>`;
+          });
+
+          productsHTML += `
+                    <div class="slider-container relative w-full mx-auto overflow-hidden flex flex-col gap-2">
+                        <div class="flex overflow-x-auto w-full px-5 snap-x gap-2 border-1 border-[bg-black]">
+                            ${imagesHTML}
+                        </div>
+                        <p class="text-center text-xl font-sans">${product.description}</p>
+                        <p class="text-center text-xl font-bold font-sans">$${product.price}</p>
+                    </div>`;
+        });
+
+        $(".slider").slick({
+          infinite: true,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          responsive: [
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2,
+              },
+            },
+            {
+              breakpoint: 576,
+              settings: {
+                slidesToShow: 1,
+              },
+            },
+          ],
+        });
+      } else {
+        data.product.forEach((product) => {
+          if (product.category === category) {
+            let imagesHTML = "";
+
+            product.gallery.forEach((image) => {
+              imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-64 h-128"> <img class=" h-200 w-200 justify-center" src="${image}" alt=""></div>`;
+            });
+
+            productsHTML += `
+    <div class="slider-container relative w-full mx-auto overflow-hidden">
+        <div class="flex overflow-x-auto w-full px-5 snap-x gap-3 border-2 border-[bg-black]">
+            ${imagesHTML}
+        </div>
+        <p class="text-center text-xl font-sans">${product.description}</p>
+        <p class="text-center text-xl font-bold font-sans">$${product.price}</p>
+    </div>
+
+                    `;
+          }
+        });
+
+        $(".slider").slick({
+          infinite: true,
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          autoplay: true,
+          autoplaySpeed: 2000,
+          responsive: [
+            {
+              breakpoint: 768,
+              settings: {
+                slidesToShow: 2,
+              },
+            },
+            {
+              breakpoint: 576,
+              settings: {
+                slidesToShow: 1,
+              },
+            },
+          ],
+        });
+      }
+
+      $("#products").html(productsHTML);
+
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  loadProductsByCategory();
 });
