@@ -24,8 +24,8 @@ $(document).ready(() => {
       const data = await response.json();
 
       console.log(data);
-
-      window.location.href = "products.html"
+      window.location.replace("products.html")
+   
     } catch (error) {
       console.error(error);
     }
@@ -109,12 +109,12 @@ $(document).ready(() => {
             let imagesHTML = "";
 
             product.gallery.forEach((image) => {
-              imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-64 h-128"> <img class=" h-200 w-200 justify-center" src="${image}" alt=""></div>`;
+              imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-64 h-full"> <img class="h-64 w-64  justify-center" src="${image}" alt=""></div>`;
             });
 
             productsHTML += `
-    <div class="slider-container relative w-full mx-auto overflow-hidden">
-        <div class="flex overflow-x-auto w-full px-5 snap-x gap-3 border-2 border-[bg-black]">
+    <div class="slider-container relative w-full h-full mx-auto overflow-hidden">
+        <div class="flex overflow-x-auto w-full h- px-5 snap-x gap-3 border-2 border-[bg-black]">
             ${imagesHTML}
         </div>
         <p class="text-center text-xl font-sans">${product.description}</p>
