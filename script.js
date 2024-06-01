@@ -24,6 +24,7 @@ $(document).ready(() => {
       const data = await response.json();
 
       console.log(data);
+      
       window.location.replace("products.html")
    
     } catch (error) {
@@ -33,9 +34,11 @@ $(document).ready(() => {
 
   const registeruser = async () => {
     try {
-      const name = $("#name").val();
-      const email = $("#email").val();
-      const password = $("#password").val();
+      const name = $("#name").text();
+      const email = $("#email").text();
+      const password = $("#password").text();
+
+      
 
       const response = await fetch("http://localhost:5000/api/auth/register", {
         method: "POST",
@@ -52,6 +55,8 @@ $(document).ready(() => {
       if (!response.ok) {
         throw new Error();
       }
+
+      console.log("succes register");
     } catch (error) {
       console.error(error);
     }
@@ -89,7 +94,7 @@ $(document).ready(() => {
           let imagesHTML = "";
 
           product.gallery.forEach((image) => {
-            imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-64 h-128"> <img class=" h-200 w-200 justify-center" src="${image}" alt=""></div>`;
+            imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-[400px] h-[400px"> <img class=" h-200 w-200 justify-center" src="${image}" alt=""></div>`;
           });
 
           productsHTML += `
@@ -109,21 +114,19 @@ $(document).ready(() => {
             let imagesHTML = "";
 
             product.gallery.forEach((image) => {
-              imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-64 h-full"> <img class="h-64 w-64  justify-center" src="${image}" alt=""></div>`;
+              imagesHTML += `<div class="border-2 border-[bg-black] slide flex-none w-[400px] h-[400px"> <img class=" h-200 w-200 justify-center" src="${image}" alt=""></div>`;
             });
-
+  
             productsHTML += `
-    <div class="slider-container relative w-full h-full mx-auto overflow-hidden">
-        <div class="flex overflow-x-auto w-full h- px-5 snap-x gap-3 border-2 border-[bg-black]">
-            ${imagesHTML}
-        </div>
-        <p class="text-center text-xl font-sans">${product.description}</p>
-        <p class="text-center text-xl font-bold font-sans">$${product.price}</p>
-    </div>
-
-                    `;
+                      <div class="slider-container relative w-full mx-auto overflow-hidden flex flex-col gap-2">
+                          <div class="flex overflow-x-auto w-full px-5 snap-x gap-2 border-1 border-[bg-black]">
+                              ${imagesHTML}
+                          </div>
+                          <p class="text-center text-xl font-sans">${product.description}</p>
+                          <p class="text-center text-xl font-bold font-sans">$${product.price}</p>
+                      </div>`;
           }
-        });
+          });
 
       
       }
@@ -136,6 +139,6 @@ $(document).ready(() => {
     }
   };
 
-  loadProductsByCategory();
+ loadProductsByCategory();
 
 });
