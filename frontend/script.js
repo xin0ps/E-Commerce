@@ -175,4 +175,11 @@ $(document).ready(() => {
   };
 
   loadProductsByCategory();
+
+
+  window.location.href = "login.html";
+
+
+
+
 });
