@@ -60,6 +60,7 @@ $(document).ready(() => {
         throw new Error();
       }
 
+      window.location.replace("index.html");
       console.log("succes register");
     } catch (error) {
       console.error(error);
@@ -197,6 +198,7 @@ function art(productId) {
 
 $("#orders").click(() => {
   order.forEach(selectedProduct => {
+    
       const sizeDivContent = selectedProduct.size.map(size => `<div class=" flex h-8 w-16 justify-center text-center flex border-[black] border-2">${size}</div>`).join('');
       const colorDivContent = selectedProduct.colors.map(color => `<div  flex class="h-8 w-16 justify-center text-center bg-[${color}] flex border-[black] border-2"></div>`).join('');
       
@@ -247,6 +249,7 @@ $("#orders").click(() => {
    
     cart.classList.remove("hidden");
     cart.style.position = "fixed";
+    cart.style.overflow="scroll"
     cart.style.top = "50%"; 
     cart.style.left = "50%";
     cart.style.transform = "translate(-50%, -60%)";
