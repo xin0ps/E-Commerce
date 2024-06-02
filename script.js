@@ -38,9 +38,9 @@ $(document).ready(() => {
 
   const registeruser = async () => {
     try {
-      const name = $("#name").text();
-      const email = $("#email").text();
-      const password = $("#password").text();
+      const name = $("#name").val();
+      const email = $("#email").val();
+      const password = $("#password").val();
 
       
 
@@ -59,9 +59,9 @@ $(document).ready(() => {
       if (!response.ok) {
         throw new Error();
       }
-
-      window.location.replace("index.html");
+     
       console.log("succes register");
+      window.location.replace("index.html");
     } catch (error) {
       console.error(error);
     }
